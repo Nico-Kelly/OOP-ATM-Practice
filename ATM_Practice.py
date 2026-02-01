@@ -1,3 +1,6 @@
+import datetime
+
+
 class ATM:
     def __init__(self,location, cash_inventory = 500000, is_active = True, _admin_key = None):
         self.location = location
@@ -48,6 +51,11 @@ class ATM:
                 print(f"Current ATM inventory: ${self.cash_inventory}")
         else:
                 print(f"Not Allowed. Access Denied.")
+    
+
+    def close_on_sundays():
+        pass
+
 class Technician:
     def __init__(self,name, key):
         self.name = name
@@ -76,7 +84,8 @@ class Account:
     def deduct(self, amount):
         self.balance -= amount
 
-    
+    def block_account():
+        pass
 
 
 if __name__ == '__main__':
