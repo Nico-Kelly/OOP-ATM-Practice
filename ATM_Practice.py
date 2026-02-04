@@ -54,13 +54,13 @@ class ATM:
         
         user.deduct(amount)
         self.cash_inventory -= amount
-        print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
+        print('Successful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
 
     def reload_inventory(self, key_input, reload_amount):
 
         if key_input == self.admin_key:
                 self.cash_inventory += reload_amount
-                print(f"Sucessfully reloaded ${reload_amount}")
+                print(f"Successfully reloaded ${reload_amount}")
                 print(f"Current ATM inventory: ${self.cash_inventory}")
         else:
                 print(f"Not Allowed. Access Denied.")
@@ -135,3 +135,8 @@ jorge.reload_atm(cajero, 1) #should be 500000 again
 Merli = Administration("Merlina", 1234)
 
 Merli.block_user(cajero, nico)
+
+
+#Trying to withdraw from a blocked account 
+
+cajero.withdraw(nico,100,2323) #passed
