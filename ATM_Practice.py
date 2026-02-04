@@ -5,6 +5,7 @@ class ATM:
         self.cash_inventory = cash_inventory
         self.is_active = is_active
         self.admin_key = _admin_key
+        self.closed_on_sundays()
 
 
     def __repr__(self):
@@ -29,11 +30,14 @@ class ATM:
         if date_today == 6:
             print(f"Sorry ATM closed")
             self.is_active = False
-
     def withdraw(self, user, amount, pin_input):
 
         if not self.is_active:
             print("Out of service")
+            return
+        
+        if not user.active:
+            print("Blocked Account")
             return
             
         if amount > self.cash_inventory:
@@ -46,14 +50,11 @@ class ATM:
 
         if not user.check_funds(amount):
             print("Error: Insufficient funds")
-            return
+            return      
         
-        if user.active == True:
-            user.deduct(amount)
-            self.cash_inventory -= amount
-            print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
-        else:
-            print('Blocked Account')
+        user.deduct(amount)
+        self.cash_inventory -= amount
+        print('Sucessful transaction. ${} have been withdrawn. Your new balance: ${}'.format(amount, user.balance))
 
     def reload_inventory(self, key_input, reload_amount):
 
@@ -134,4 +135,3 @@ jorge.reload_atm(cajero, 1) #should be 500000 again
 Merli = Administration("Merlina", 1234)
 
 Merli.block_user(cajero, nico)
-
