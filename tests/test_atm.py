@@ -8,3 +8,10 @@ def test__account_string_representation():
 
     assert str(nico) == "You are Nico, your account is currently online"
     assert "currently disabled" in str(blocked_user)
+
+
+
+def test_initial_balance():
+
+    pepe = Account(1234, "Pepe", 500, active=True)
+    assert pepe.balance == 500
