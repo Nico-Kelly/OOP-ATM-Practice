@@ -81,20 +81,18 @@ class Technician:
     
     def __str__(self):
         return f"{self.name} is an autorized ATM Technician"
-    
-
 
     def turn_off_atm(self,atm_instance): 
-        print('{} Turning down ATM... '.format(self.name))
         atm_instance.change_power_status(self.key, new_status = False)
-
+        return('{} Turning down ATM... '.format(self.name))
+    
     def turning_on_atm(self, atm_instance):
-        print('{} Turning on ATM...'.format(self.name))
         atm_instance.change_power_status(self.key, new_status = True)
+        return('{} Turning on ATM...'.format(self.name))
 
     def reload_atm(self, atm_instance, reload_amount):
-        print(f"{self.name} is attempting to reload the ATM.. ")
         atm_instance.reload_inventory(key_input=self.key, reload_amount=reload_amount)
+        return (f"{self.name} is attempting to reload the ATM.. ")
 class Administration:
 
     def __init__(self, name, key):
@@ -102,8 +100,9 @@ class Administration:
         self.key = key
 
     def block_user(self, atm_instance, account_to_block):
-        print(f"Suspicious activity alert. {account_to_block} is blocked from this {atm_instance}, for more info contact with the bank")
         account_to_block.active = False
+        return(f"Suspicious activity alert. {account_to_block} is blocked from this {atm_instance}, for more info contact with the bank")
+        
 class Account:
     def __init__(self, pin, name, balance, active=True):
         self.pin = pin
