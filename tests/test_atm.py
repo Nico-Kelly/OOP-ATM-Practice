@@ -28,3 +28,20 @@ def test_withdraw_balance():
     assert nico.balance == 39999
 
 
+def test_atm_reload():
+
+    cajero = ATM("New York", is_active= True, _admin_key = 1234)
+
+    jorge = Technician("Jorge", 1234)
+
+    jorge.reload_atm(cajero, 1)
+
+    assert cajero.cash_inventory == 500001
+
+def test_block_user_from_atm():
+    cajero = ATM("New York", is_active= True, _admin_key = 1234)
+    Johnny = Administration("Johnny Guitar", 1234)
+    nico = Account(1453, "Nico", 10)
+    
+    assert Johnny.block_user(cajero, nico) == (f"Suspicious activity alert. {nico} is blocked from this {cajero.location} ATM, for more info contact with the bank")
+
