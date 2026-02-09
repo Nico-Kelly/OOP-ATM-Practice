@@ -22,7 +22,7 @@ def test_change_power_status():
 
     atm = ATM("New Jersey", 10000, is_active=True, _admin_key= 129)
     atm.change_power_status(129, new_status= False)
-    
+
     assert atm.is_active == False
 
 def test_withdraw_balance():
@@ -62,6 +62,19 @@ def test_how_many_atm():
     assert ATM.how_many_atm() == 2
     
 
+#  Technician Class tests
+
+def test_turn_off_atm():
+    
+    box = ATM("Colorado", 1000, is_active=True, _admin_key = 130)
+    george = Technician("George", 130)
+
+    george.turn_off_atm(box)
+
+    assert box.is_active == False
+
+    
+# Account class tests
 def test_how_many_users():
 
     Account.number_of_accounts = 0
