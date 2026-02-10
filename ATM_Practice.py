@@ -37,7 +37,7 @@ class ATM:
     def closed_on_sundays(self):
         date_today = datetime.datetime.now().weekday()
         #date_today = 6
-        if date_today == 5:
+        if date_today == 6:
             self.is_active = False
             return "Sorry ATM closed"
             
