@@ -1,6 +1,5 @@
 from ATM_Practice import ATM, Account, Technician, Administration
-
-
+import pytest
 
 
 # ATM CLASS TESTS
@@ -12,6 +11,14 @@ def test_account_string_representation():
 
     assert str(nico) == "You are Nico, your account is currently online"
     assert "currently disabled" in str(blocked_user)
+
+
+def test_cash_inventory_is_protected():
+    cajero = ATM("New York", _cash_inventory=1000)
+
+    assert cajero.cash_inventory == 1000
+    with pytest.raises(AttributeError):
+        cajero.cash_inventory = 5000
 
 def test_initial_balance():
 
