@@ -25,12 +25,12 @@ def test_initial_balance():
     pepe = Account(1234, "Pepe", 500, active=True)
     assert pepe.balance == 500
 
-"""def test_change_power_status():
+def test_change_power_status():
 
     atm = ATM("New Jersey", 10000, _is_active=True, _admin_key= 129)
     atm.change_power_status(129, new_status= False)
 
-    assert atm._is_active == False""" # Gotta refactor this one, or keep it dry.
+    assert atm._is_active == False
 
 def test_withdraw_balance():
 
