@@ -142,7 +142,7 @@ class Administration:
         return self._key
 
     def block_user(self, atm_instance, account_to_block):
-        account_to_block.active = False
+        account_to_block._active = False
         return(f"Suspicious activity alert. {account_to_block} is blocked from this {atm_instance}, for more info contact with the bank")
 class Account:
 

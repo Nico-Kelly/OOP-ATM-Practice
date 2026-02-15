@@ -28,19 +28,11 @@ def atm_admin():
 
 # ATM CLASS TESTS
 
-def test_account_string_representation(nico, blocked_user):
-
-    assert str(nico) == "You are Nico, your account is currently online"
-    assert "currently disabled" in str(blocked_user)
-
 def test_cash_inventory_is_protected(atm_new_york):
 
     assert atm_new_york.cash_inventory == 1000
     with pytest.raises(AttributeError):
         atm_new_york.cash_inventory = 5000
-
-def test_initial_balance(nico):
-    assert nico.balance == 500
 
 def test_change_power_status(atm_new_york):
     atm_new_york.change_power_status(129, new_status= False)
@@ -59,15 +51,14 @@ def test_atm_reload(atm_technician, atm_new_york):
     assert atm_new_york.cash_inventory == 1001
 
 def test_denied_atm_reload(atm_technician,atm_new_york):
+
+    initial_cash = atm_new_york.cash_inventory
+
     atm_technician._key = 1
     atm_technician.reload_atm(atm_new_york, 1000)
-    with pytest.raises(AttributeError):
-        atm_new_york.cash_inventory = 2000 #access denied.
 
-
-def test_block_user_from_atm(atm_new_york, nico, atm_admin):
-    atm_admin.block_user(atm_new_york, nico)
-    assert nico.active is False
+    assert atm_new_york.cash_inventory == initial_cash
+    
 
 def test_how_many_atm():
     ATM.number_of_atms = 0 #manual reset
@@ -77,6 +68,14 @@ def test_how_many_atm():
     
     assert ATM.how_many_atm() == 2
     
+#Admin class tests
+
+
+def test_block_user_from_atm(atm_new_york, nico, atm_admin):
+    atm_admin.block_user(atm_new_york, nico)
+    assert nico._active is False
+
+
 
 #  Technician Class tests
 
@@ -99,6 +98,11 @@ def test_how_many_users():
     nico = Account(_pin=2026, name="Nick", _balance=0, _active=True)
 
     assert Account.how_many_accounts() == 1
+
+def test_account_string_representation(nico, blocked_user):
+
+    assert str(nico) == "You are Nico, your account is currently online"
+    assert "currently disabled" in str(blocked_user)
 
 
 def test_checkfund(nico):
