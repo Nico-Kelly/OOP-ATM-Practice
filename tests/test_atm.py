@@ -26,6 +26,13 @@ def atm_admin():
     atm_admin= Administration("Johnny Guitar", 1234)
     return atm_admin
 
+
+@pytest.fixture(autouse=True)
+def reset_counters():
+
+    ATM.number_of_atms = 0
+    Account.number_of_accounts = 0
+    yield
 # ATM CLASS TESTS
 
 def test_cash_inventory_is_protected(atm_new_york):
@@ -61,7 +68,6 @@ def test_denied_atm_reload(atm_technician,atm_new_york):
     
 
 def test_how_many_atm():
-    ATM.number_of_atms = 0 #manual reset
 
     cajero = ATM("New York", _admin_key = 1234)
     dublin_ATM = ATM("Dublin", _admin_key= 3950)
@@ -91,11 +97,7 @@ def test_turn_off_and_on_atm(atm_new_york, atm_technician):
 
 
 # Account class tests
-def test_how_many_users():
-
-    Account.number_of_accounts = 0
-
-    nico = Account(_pin=2026, name="Nick", _balance=0, _active=True)
+def test_how_many_users(nico):
 
     assert Account.how_many_accounts() == 1
 
