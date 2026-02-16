@@ -59,7 +59,7 @@ class ATM:
         date_today = datetime.datetime.now().weekday()
         #date_today = 6
         if date_today == 6:
-            self.is_active = False
+            #self._is_active = False
             return "Sorry ATM closed"
             
     def withdraw(self, user, amount, pin_input):
