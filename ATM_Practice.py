@@ -9,7 +9,6 @@ class ATM:
         self._is_active = _is_active
         self.admin_key = _admin_key
         self.closed_on_sundays()
-
         ATM.number_of_atms += 1
 
     @property
@@ -21,7 +20,7 @@ class ATM:
         return self._is_active
     
     @classmethod
-    def create_from_string(cls, data_string):
+    def create_atm_from_string(cls, data_string):
         # Creates an ATM instance with the format location-cash inventory- is active - admin key
         location, cash_str, is_active_str, admin_key_str = data_string.split(',')
 
@@ -32,6 +31,12 @@ class ATM:
         is_active = is_active_str.strip() == "True"
         
         return cls(location, cash_inventory, is_active, admin_key)
+    
+    @classmethod
+    def how_many_atm(cls):
+        how_m = cls.number_of_atms
+        return how_m
+
 
     def __repr__(self):
         return f"ATM Located in {self.location}"
@@ -93,11 +98,6 @@ class ATM:
         else:
                 print(f"Not Allowed. Access Denied.")
 
-    @classmethod
-    def how_many_atm(cls):
-        how_m = cls.number_of_atms
-        return how_m
-
 class Technician:
     def __init__(self,name, _key):
         self.name = name
@@ -108,6 +108,12 @@ class Technician:
     
     def __str__(self):
         return f"{self.name} is an authorized ATM Technician"
+    
+    @classmethod
+    def create_technician_from_string(cls, data_string):
+        name, key = data_string.split(',')
+        
+        return cls(name, key)
 
     @property
     def key(self):
@@ -130,6 +136,12 @@ class Administration:
     def __init__(self, name, key):
         self.name = name
         self._key = key
+
+    @classmethod
+    def create_admin_from_string(cls, data_string):
+        name, key = data_string.split(',')
+        
+        return cls(name, key)
     
     def __repr__(self):
         return f"Administrator: {self.name} \n Key: {self._key}"
@@ -154,6 +166,16 @@ class Account:
         self._active = _active
 
         Account.number_of_accounts += 1
+
+    @classmethod
+    def create_admin_from_string(cls, data_string):
+        pin_str, name, balance_str, active_str = data_string.split(',')
+        _pin = int(pin_str)
+        _balance = balance_str
+        
+        _active = active_str.strip() == "True"
+
+        return cls(_pin, name, _balance, _active)
     
     @property
     def pin(self):
