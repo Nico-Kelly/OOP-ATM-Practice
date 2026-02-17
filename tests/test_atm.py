@@ -35,6 +35,16 @@ def reset_counters():
     yield
 # ATM CLASS TESTS
 
+def test_create_from_str():
+
+    atm_str = "New York,50000,True,1234"
+
+    new_york_str_atm = ATM.create_atm_from_string(atm_str)
+    assert new_york_str_atm.__repr__() == f"ATM Located in New York"
+    assert new_york_str_atm.cash_inventory == 50000
+    assert new_york_str_atm.is_active is True
+    assert new_york_str_atm.admin_key == 1234
+
 def test_cash_inventory_is_protected(atm_new_york):
 
     assert atm_new_york.cash_inventory == 1000
