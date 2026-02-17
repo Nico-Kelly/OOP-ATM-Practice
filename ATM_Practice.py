@@ -168,7 +168,7 @@ class Account:
         Account.number_of_accounts += 1
 
     @classmethod
-    def create_admin_from_string(cls, data_string):
+    def create_account_from_string(cls, data_string):
         pin_str, name, balance_str, active_str = data_string.split(',')
         _pin = int(pin_str)
         _balance = int(balance_str)
