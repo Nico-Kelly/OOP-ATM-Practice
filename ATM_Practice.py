@@ -111,8 +111,8 @@ class Technician:
     
     @classmethod
     def create_technician_from_string(cls, data_string):
-        name, key = data_string.split(',')
-        
+        name, key_str = data_string.split(',')
+        key = int(key_str)
         return cls(name, key)
 
     @property
@@ -139,8 +139,8 @@ class Administration:
 
     @classmethod
     def create_admin_from_string(cls, data_string):
-        name, key = data_string.split(',')
-        
+        name, key_str = data_string.split(',')
+        key = int(key_str)
         return cls(name, key)
     
     def __repr__(self):
@@ -171,7 +171,7 @@ class Account:
     def create_admin_from_string(cls, data_string):
         pin_str, name, balance_str, active_str = data_string.split(',')
         _pin = int(pin_str)
-        _balance = balance_str
+        _balance = int(balance_str)
         
         _active = active_str.strip() == "True"
 
