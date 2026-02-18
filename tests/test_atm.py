@@ -124,6 +124,19 @@ def test_turn_off_and_on_atm(atm_new_york, atm_technician):
 
 
 # Account class tests
+
+def test_create_technician_from_str():
+    willie = "1694,Willie Nelson,1000,True"
+    test_account_str = Account.create_account_from_string(willie)
+
+
+    assert test_account_str.__repr__() == f"Account name: Willie Nelson \n pin: 1694,\n balance: 1000,\n active: True"
+    assert test_account_str.pin == 1694
+    assert test_account_str.name == "Willie Nelson"
+    assert test_account_str.is_active is True
+    assert test_account_str.balance == 1000
+
+
 def test_how_many_users(nico):
 
     assert Account.how_many_accounts() == 1
