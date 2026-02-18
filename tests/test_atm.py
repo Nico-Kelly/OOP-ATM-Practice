@@ -102,6 +102,16 @@ def test_block_user_from_atm(atm_new_york, nico, atm_admin):
 
 #  Technician Class tests
 
+
+def test_create_technician_from_str():
+    johnny = "Johnny Cash,1234"
+    test_technician_str = Technician.create_technician_from_string(johnny)
+
+
+    assert test_technician_str.__str__() == f"Johnny Cash is an authorized ATM Technician"
+    assert test_technician_str._key == 1234
+
+
 def test_turn_off_and_on_atm(atm_new_york, atm_technician):
 
     atm_technician.turn_off_atm(atm_new_york)
