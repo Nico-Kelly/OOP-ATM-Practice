@@ -35,7 +35,7 @@ def reset_counters():
     yield
 # ATM CLASS TESTS
 
-def test_create_from_str():
+def test_create_atm_from_str():
 
     atm_str = "New York,50000,True,1234"
 
@@ -86,6 +86,13 @@ def test_how_many_atm():
     
 #Admin class tests
 
+def test_create_admin_from_str():
+    johnny = "Johnny Cash,1234"
+    test_adm_str = Administration.create_admin_from_string(johnny)
+
+
+    assert test_adm_str.__str__() == f"Johnny Cash is an authorized ATM Administrator"
+    assert test_adm_str.key == 1234
 
 def test_block_user_from_atm(atm_new_york, nico, atm_admin):
     atm_admin.block_user(atm_new_york, nico)
