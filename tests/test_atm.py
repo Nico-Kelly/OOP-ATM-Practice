@@ -26,6 +26,10 @@ def atm_admin():
     atm_admin= Administration("Johnny Guitar", 1234)
     return atm_admin
 
+@pytest.fixture #just for the admin and technician create from str tests
+def johnny():
+    johnny_c = "Johnny Cash, 1234"
+    return johnny_c
 
 @pytest.fixture(autouse=True)
 def reset_counters():
@@ -86,11 +90,9 @@ def test_how_many_atm():
     
 #Admin class tests
 
-def test_create_admin_from_str():
-    johnny = "Johnny Cash,1234"
+def test_create_admin_from_str(johnny):
+
     test_adm_str = Administration.create_admin_from_string(johnny)
-
-
     assert test_adm_str.__str__() == f"Johnny Cash is an authorized ATM Administrator"
     assert test_adm_str.key == 1234
 
@@ -98,16 +100,11 @@ def test_block_user_from_atm(atm_new_york, nico, atm_admin):
     atm_admin.block_user(atm_new_york, nico)
     assert nico._active is False
 
-
-
 #  Technician Class tests
 
+def test_create_technician_from_str(johnny):
 
-def test_create_technician_from_str():
-    johnny = "Johnny Cash,1234"
     test_technician_str = Technician.create_technician_from_string(johnny)
-
-
     assert test_technician_str.__str__() == f"Johnny Cash is an authorized ATM Technician"
     assert test_technician_str._key == 1234
 
@@ -126,9 +123,9 @@ def test_turn_off_and_on_atm(atm_new_york, atm_technician):
 # Account class tests
 
 def test_create_technician_from_str():
+
     willie = "1694,Willie Nelson,1000,True"
     test_account_str = Account.create_account_from_string(willie)
-
 
     assert test_account_str.__repr__() == f"Account name: Willie Nelson \n pin: 1694,\n balance: 1000,\n active: True"
     assert test_account_str.pin == 1694
