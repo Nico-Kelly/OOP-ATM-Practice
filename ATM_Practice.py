@@ -209,3 +209,13 @@ class Account:
     def how_many_accounts(cls):
         how_m = cls.number_of_accounts
         return how_m
+
+
+
+class Risky_Account(Account):
+
+    def __init__(self, _pin, name, _balance, _active=True, credit_score = 1):
+        super().__init__(_pin, name, _balance, _active)
+        self.credit_score = credit_score
+
+
