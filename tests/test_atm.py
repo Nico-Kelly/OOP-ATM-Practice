@@ -1,4 +1,4 @@
-from ATM_Practice import ATM, Account, Technician, Administration
+from ATM_Practice import ATM, Account, Risky_Account, Technician, Administration
 import pytest
 
 @pytest.fixture
@@ -30,6 +30,12 @@ def atm_admin():
 def johnny():
     johnny_c = "Johnny Cash, 1234"
     return johnny_c
+
+@pytest.fixture
+
+def homero():
+    homero = Risky_Account(1234, "Homero", _balance = 5000, _active = True, credit_score = 1)
+    return homero
 
 @pytest.fixture(autouse=True)
 def reset_counters():
@@ -122,7 +128,7 @@ def test_turn_off_and_on_atm(atm_new_york, atm_technician):
 
 # Account class tests
 
-def test_create_technician_from_str():
+def test_create_account_from_str():
 
     willie = "1694,Willie Nelson,1000,True"
     test_account_str = Account.create_account_from_string(willie)
@@ -155,5 +161,13 @@ def test_deduct(nico):
 
     assert nico.balance == 490
 
+#risky account tests
 
+def test_if_r_account_inherits_properly(homero):
+    
+    assert homero.is_active is True
+    assert homero.balance == 5000
+    assert homero.pin == 1234
+    assert homero.name == "Homero"
+    assert homero.credit_score == 1
 
