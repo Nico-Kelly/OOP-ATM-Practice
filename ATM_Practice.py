@@ -161,12 +161,13 @@ class Administration:
 class Account:
 
     number_of_accounts = 0
-    def __init__(self, _pin, name, _balance, _active=True, _debt = None ):
+    def __init__(self, _pin, name, _balance, _active=True, _credit_score = 50,_debt = None ):
         self._pin = _pin
         self.name = name
         self._balance = _balance
         self._active = _active
         self._debt = _debt
+        self._credit_score = _credit_score
 
         Account.number_of_accounts += 1
 
@@ -218,22 +219,23 @@ class Account:
 
     def request_loan(self, amount):
         if self.is_active:
-            self._balance += amount
-            return True
+            if self._credit_score > 50:
+                self._balance += amount
+                return True
+            return False
         return False
 
 
 
-class Risky_Account(Account):
+class Other_Bank_Account(Account):
 
-    def __init__(self, _pin, name, _balance, _active=True, _debt = None,  credit_score = 1):
-        super().__init__(_pin, name, _balance, _active, _debt )
-        self.credit_score = credit_score
+    def __init__(self, _pin, name, _balance, _active=True, _credit_score = 49, _debt = None,  ):
+        super().__init__(_pin, name, _balance, _active, _credit_score,  _debt )
 
-    def request_loan(self, amount):
-        if self.credit_score > 50:
-            return super().request_loan(amount)
-        else:
-            return False
+    def deduct(self, amount):
+            fee = amount * 0.10
+            total_amount = amount - fee
+            self._balance -= total_amount
+
 
 

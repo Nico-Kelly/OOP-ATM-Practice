@@ -1,4 +1,4 @@
-from ATM_Practice import ATM, Account, Risky_Account, Technician, Administration
+from ATM_Practice import ATM, Account, Other_Bank_Account, Technician, Administration
 import pytest
 
 @pytest.fixture
@@ -34,7 +34,7 @@ def johnny():
 @pytest.fixture
 
 def homero():
-    homero = Risky_Account(1234, "Homero", _balance = 5000, _active = True, credit_score = 1)
+    homero = Other_Bank_Account(1234, "Homero", _balance = 5000, _active = True, _credit_score = 49)
     return homero
 
 @pytest.fixture(autouse=True)
@@ -163,13 +163,13 @@ def test_deduct(nico):
 
 #risky account tests
 
-def test_if_r_account_inherits_properly(homero):
+def test_if_other_bank_account_inherits_properly(homero):
     
     assert homero.is_active is True
     assert homero.balance == 5000
     assert homero.pin == 1234
     assert homero.name == "Homero"
-    assert homero.credit_score == 1
+    assert homero._credit_score == 49
 
 def test_risky_account_loan_denied(homero):
     result = homero.request_loan(1000)
