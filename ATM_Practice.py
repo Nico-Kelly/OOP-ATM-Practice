@@ -230,4 +230,10 @@ class Risky_Account(Account):
         super().__init__(_pin, name, _balance, _active, _debt )
         self.credit_score = credit_score
 
+    def request_loan(self, amount):
+        if self.credit_score > 50:
+            return super().request_loan(amount)
+        else:
+            return False
+
 
