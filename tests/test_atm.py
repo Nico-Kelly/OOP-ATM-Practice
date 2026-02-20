@@ -171,3 +171,9 @@ def test_if_r_account_inherits_properly(homero):
     assert homero.name == "Homero"
     assert homero.credit_score == 1
 
+def test_risky_account_loan_denied(homero):
+    result = homero.request_loan(1000)
+
+    assert result is False
+    assert homero.balance == 5000
+
