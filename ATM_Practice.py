@@ -98,6 +98,8 @@ class ATM:
         else:
                 print(f"Not Allowed. Access Denied.")
 
+        
+
 class Technician:
     def __init__(self,name, _key):
         self.name = name
@@ -159,11 +161,12 @@ class Administration:
 class Account:
 
     number_of_accounts = 0
-    def __init__(self, _pin, name, _balance, _active=True):
+    def __init__(self, _pin, name, _balance, _active=True, _debt = None ):
         self._pin = _pin
         self.name = name
         self._balance = _balance
         self._active = _active
+        self._debt = _debt
 
         Account.number_of_accounts += 1
 
@@ -188,6 +191,10 @@ class Account:
     @property
     def is_active(self):
         return self._active
+    
+    @property
+    def debt(self):
+        return self._debt
     
     def check_funds(self, amount):
         return self._balance >= amount
@@ -214,8 +221,8 @@ class Account:
 
 class Risky_Account(Account):
 
-    def __init__(self, _pin, name, _balance, _active=True, credit_score = 1):
-        super().__init__(_pin, name, _balance, _active)
+    def __init__(self, _pin, name, _balance, _active=True, _debt = None,  credit_score = 1):
+        super().__init__(_pin, name, _balance, _active, _debt )
         self.credit_score = credit_score
 
 
