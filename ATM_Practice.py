@@ -175,7 +175,6 @@ class Account:
         pin_str, name, balance_str, active_str = data_string.split(',')
         _pin = int(pin_str)
         _balance = int(balance_str)
-        
         _active = active_str.strip() == "True"
 
         return cls(_pin, name, _balance, _active)
@@ -195,12 +194,6 @@ class Account:
     @property
     def debt(self):
         return self._debt
-    
-    def check_funds(self, amount):
-        return self._balance >= amount
-    
-    def deduct(self, amount):
-        self._balance -= amount
 
     def __repr__(self):
         return f"Account name: {self.name} \n pin: {self._pin},\n balance: {self._balance},\n active: {self._active}"
@@ -216,6 +209,18 @@ class Account:
     def how_many_accounts(cls):
         how_m = cls.number_of_accounts
         return how_m
+    
+    def check_funds(self, amount):
+        return self._balance >= amount
+    
+    def deduct(self, amount):
+        self._balance -= amount
+
+    def request_loan(self, amount):
+        if self.is_active:
+            self._balance += amount
+            return True
+        return False
 
 
 
