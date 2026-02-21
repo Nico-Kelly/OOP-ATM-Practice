@@ -171,9 +171,15 @@ def test_if_other_bank_account_inherits_properly(homero):
     assert homero.name == "Homero"
     assert homero._credit_score == 49
 
-def test_risky_account_loan_denied(homero):
+def test_Other_b_account_request_loan(homero):
     result = homero.request_loan(1000)
 
     assert result is False
     assert homero.balance == 5000
+
+def test_other_bank_account_fee(homero):
+    homero.deduct(1000)
+
+    assert homero.balance == 3900 # it has a 10% fee
+
 

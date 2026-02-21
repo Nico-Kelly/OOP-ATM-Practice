@@ -195,6 +195,7 @@ class Account:
     @property
     def debt(self):
         return self._debt
+    
 
     def __repr__(self):
         return f"Account name: {self.name} \n pin: {self._pin},\n balance: {self._balance},\n active: {self._active}"
@@ -234,7 +235,7 @@ class Other_Bank_Account(Account):
 
     def deduct(self, amount):
             fee = amount * 0.10
-            total_amount = amount - fee
+            total_amount = amount + fee
             self._balance -= total_amount
 
 
