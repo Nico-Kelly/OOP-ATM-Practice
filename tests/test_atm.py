@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture
 def nico():
-    nico = Account(_pin=2026, name="Nico", _balance=500, _active=True)
+    nico = Account(_pin=2026, name="Nico", _balance=500, _active=True, _credit_score = 55, _debt = None)
     return nico
 
 @pytest.fixture
@@ -160,6 +160,12 @@ def test_deduct(nico):
     nico.deduct(10)
 
     assert nico.balance == 490
+
+def test_loan(nico):
+    result = nico.request_loan(500)
+    
+    assert result is True
+    assert nico.balance == 1000
 
 #risky account tests
 
