@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture
 def nico():
-    nico = Account(_pin=2026, name="Nico", _balance=500, _active=True, _credit_score = 55, _debt = None)
+    nico = Account(_pin=2026, name="Nico", _balance=500, _active=True, _credit_score = 55, _debt = 0)
     return nico
 
 @pytest.fixture

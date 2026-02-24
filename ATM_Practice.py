@@ -161,13 +161,14 @@ class Administration:
 class Account:
 
     number_of_accounts = 0
-    def __init__(self, _pin, name, _balance, _active=True, _credit_score = 50,_debt = None ):
+    def __init__(self, _pin, name, _balance, _active=True, _credit_score = 50,_debt = 0 ):
         self._pin = _pin
         self.name = name
         self._balance = _balance
         self._active = _active
-        self._debt = _debt
         self._credit_score = _credit_score
+        self._debt = _debt
+        
 
         Account.number_of_accounts += 1
 
@@ -222,6 +223,7 @@ class Account:
         if self.is_active:
             if self._credit_score > 50:
                 self._balance += amount
+                self._debt += amount
                 return True
             return False
         return False
