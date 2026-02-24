@@ -191,6 +191,9 @@ def test_Other_b_account_request_loan(homero):
     assert result is False
     assert homero.balance == 5000
 
+def test_other_bank_debt_after_loan(marge):
+    pass
+
 def test_other_bank_account_fee(homero):
     homero.deduct(1000)
 
