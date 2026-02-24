@@ -31,12 +31,17 @@ def johnny():
     johnny_c = "Johnny Cash, 1234"
     return johnny_c
 
+#other b account fixtures
 @pytest.fixture
-
 def homero():
     homero = Other_Bank_Account(1234, "Homero", _balance = 5000, _active = True, _credit_score = 49)
     return homero
 
+@pytest.fixture
+
+def marge():
+    marge = Other_Bank_Account(1234, "Marge", _balance = 10000, _active = True, _credit_score = 55, _debt = 0)
+    return marge
 @pytest.fixture(autouse=True)
 def reset_counters():
 
@@ -166,6 +171,9 @@ def test_loan(nico):
     
     assert result is True
     assert nico.balance == 1000
+    assert nico._debt == 500
+
+
 
 #risky account tests
 
