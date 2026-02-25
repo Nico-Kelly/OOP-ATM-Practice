@@ -241,14 +241,11 @@ class Other_Bank_Account(Account):
             self._balance -= total_amount
 
     def request_loan(self, amount):
-        if self.is_active:
-            if self._credit_score > 50:
-                fee = amount * 0.10
-                total_amount = amount + fee
-                self._balance += amount
-                self._debt += total_amount
-                return True
-            return False
-        return False
+        approved_loan = super().request_loan(amount)
 
+        if approved_loan:
+            fee = amount * 0.10
+            self._debt += fee
+            return True
+        return False
 
