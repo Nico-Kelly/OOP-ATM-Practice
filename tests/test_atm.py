@@ -42,6 +42,7 @@ def homero():
 def marge():
     marge = Other_Bank_Account(1234, "Marge", _balance = 10000, _active = True, _credit_score = 55, _debt = 0)
     return marge
+
 @pytest.fixture(autouse=True)
 def reset_counters():
 
@@ -107,9 +108,11 @@ def test_create_admin_from_str(johnny):
     assert test_adm_str.__str__() == f"Johnny Cash is an authorized ATM Administrator"
     assert test_adm_str.key == 1234
 
-def test_block_user_from_atm(atm_new_york, nico, atm_admin):
+def test_block_user_from_atm(atm_new_york, nico, atm_admin, homero): #updated this test to check that it blocks other_bank_account instances properly
     atm_admin.block_user(atm_new_york, nico)
     assert nico._active is False
+    atm_admin.block_user(atm_new_york, homero)
+    assert homero._active is False
 
 #  Technician Class tests
 
@@ -161,9 +164,8 @@ def test_checkfund(nico):
     assert nico.check_funds(501) == False
 
 def test_deduct(nico):
-    
-    nico.deduct(10)
 
+    nico.deduct(10)
     assert nico.balance == 490
 
 def test_loan(nico):
@@ -173,9 +175,7 @@ def test_loan(nico):
     assert nico.balance == 1000
     assert nico._debt == 500
 
-
-
-#risky account tests
+#other account tests
 
 def test_if_other_bank_account_inherits_properly(homero):
     
