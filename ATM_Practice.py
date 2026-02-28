@@ -84,11 +84,11 @@ class ATM:
 
         if not user.check_funds(amount):
             return "Error: Insufficient funds"
-
         
         user.deduct(amount)
         self._cash_inventory -= amount
         return f'Successful transaction. ${amount} have been withdrawn. Your new balance: ${user.balance}'
+    
     def reload_inventory(self, key_input, reload_amount):
 
         if key_input == self.admin_key:
@@ -226,9 +226,6 @@ class Account:
                 return True
             return False
         return False
-
-
-
 class Other_Bank_Account(Account):
 
     def __init__(self, _pin, name, _balance, _active=True, _credit_score = 49, _debt = None,  ):
