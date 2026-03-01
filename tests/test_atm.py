@@ -51,6 +51,7 @@ def reset_counters():
     yield
 # ATM CLASS TESTS
 
+@pytest.mark.atm
 def test_create_atm_from_str():
 
     atm_str = "New York,50000,True,1234"
@@ -61,28 +62,33 @@ def test_create_atm_from_str():
     assert new_york_str_atm.is_active is True
     assert new_york_str_atm.admin_key == 1234
 
+@pytest.mark.atm
 def test_cash_inventory_is_protected(atm_new_york):
 
     assert atm_new_york.cash_inventory == 1000
     with pytest.raises(AttributeError):
         atm_new_york.cash_inventory = 5000
 
+@pytest.mark.atm
 def test_change_power_status(atm_new_york):
     atm_new_york.change_power_status(129, new_status= False)
 
     assert atm_new_york._is_active == False
 
+@pytest.mark.atm
 def test_withdraw_balance(atm_new_york, nico):
     
     atm_new_york.withdraw(nico, 1, 2026)
     assert nico.balance == 499
 
+@pytest.mark.atm
 def test_atm_reload(atm_technician, atm_new_york):
 
     atm_technician.reload_atm(atm_new_york, 1)
 
     assert atm_new_york.cash_inventory == 1001
 
+@pytest.mark.atm
 def test_denied_atm_reload(atm_technician,atm_new_york):
 
     initial_cash = atm_new_york.cash_inventory
@@ -92,7 +98,7 @@ def test_denied_atm_reload(atm_technician,atm_new_york):
 
     assert atm_new_york.cash_inventory == initial_cash
     
-
+@pytest.mark.atm
 def test_how_many_atm():
 
     cajero = ATM("New York", _admin_key = 1234)
@@ -101,13 +107,14 @@ def test_how_many_atm():
     assert ATM.how_many_atm() == 2
     
 #Admin class tests
-
+@pytest.mark.admin
 def test_create_admin_from_str(johnny):
 
     test_adm_str = Administration.create_admin_from_string(johnny)
     assert test_adm_str.__str__() == f"Johnny Cash is an authorized ATM Administrator"
     assert test_adm_str.key == 1234
 
+@pytest.mark.admin
 def test_block_user_from_atm(atm_new_york, nico, atm_admin, homero): #updated this test to check that it blocks other_bank_account instances properly
     atm_admin.block_user(atm_new_york, nico)
     assert nico._active is False
@@ -116,13 +123,14 @@ def test_block_user_from_atm(atm_new_york, nico, atm_admin, homero): #updated th
 
 #  Technician Class tests
 
+@pytest.mark.technician
 def test_create_technician_from_str(johnny):
 
     test_technician_str = Technician.create_technician_from_string(johnny)
     assert test_technician_str.__str__() == f"Johnny Cash is an authorized ATM Technician"
     assert test_technician_str._key == 1234
 
-
+@pytest.mark.technician
 def test_turn_off_and_on_atm(atm_new_york, atm_technician):
 
     atm_technician.turn_off_atm(atm_new_york)
@@ -135,7 +143,7 @@ def test_turn_off_and_on_atm(atm_new_york, atm_technician):
 
 
 # Account class tests
-
+@pytest.mark.account
 def test_create_account_from_str():
 
     willie = "1694,Willie Nelson,1000,True"
@@ -147,27 +155,30 @@ def test_create_account_from_str():
     assert test_account_str.is_active is True
     assert test_account_str.balance == 1000
 
-
+@pytest.mark.account
 def test_how_many_users(nico):
 
     assert Account.how_many_accounts() == 1
 
+@pytest.mark.account
 def test_account_string_representation(nico, blocked_user):
 
     assert str(nico) == "You are Nico, your account is currently online"
     assert "currently disabled" in str(blocked_user)
 
-
+@pytest.mark.account
 def test_checkfund(nico):
 
     assert nico.check_funds(500) == True
     assert nico.check_funds(501) == False
 
+@pytest.mark.account
 def test_deduct(nico):
 
     nico.deduct(10)
     assert nico.balance == 490
 
+@pytest.mark.account
 def test_loan(nico):
     result = nico.request_loan(500)
     
@@ -177,6 +188,7 @@ def test_loan(nico):
 
 #other account tests
 
+@pytest.mark.account
 def test_if_other_bank_account_inherits_properly(homero):
     
     assert homero.is_active is True
@@ -185,16 +197,20 @@ def test_if_other_bank_account_inherits_properly(homero):
     assert homero.name == "Homero"
     assert homero._credit_score == 49
 
+@pytest.mark.account
 def test_Other_b_account_request_loan(homero):
     result = homero.request_loan(1000)
 
     assert result is False
     assert homero.balance == 5000
 
+@pytest.mark.account
 def test_other_bank_debt_after_loan(marge):
     marge.request_loan(100)
     assert marge.balance == 10100
     assert marge._debt == 110
+
+@pytest.mark.account
 def test_other_bank_account_fee(homero):
     homero.deduct(1000)
 
