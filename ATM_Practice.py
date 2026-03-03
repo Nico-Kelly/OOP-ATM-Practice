@@ -98,6 +98,9 @@ class ATM:
         else:
                 print(f"Not Allowed. Access Denied.")
 
+    def empty_atm(self):
+        if self._cash_inventory == 0:
+            return "Out of Service"
         
 class Technician:
     def __init__(self,name, _key):
