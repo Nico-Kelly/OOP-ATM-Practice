@@ -186,6 +186,12 @@ def test_loan(nico):
     assert nico.balance == 1000
     assert nico._debt == 500
 
+@pytest.mark.account
+def test_deduct_negative_amount(nico):
+    with pytest.raises(ValueError):
+        nico.deduct(-100)
+
+
 #other account tests
 
 @pytest.mark.account
