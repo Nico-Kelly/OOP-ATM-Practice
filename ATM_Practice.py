@@ -219,6 +219,8 @@ class Account:
         return self._balance >= amount
     
     def deduct(self, amount):
+        if amount <= 0:
+            raise ValueError("Amount MUST be positive")
         self._balance -= amount
 
     def request_loan(self, amount):
