@@ -213,6 +213,7 @@ def test_Other_b_account_request_loan(homero):
 @pytest.mark.account
 def test_other_bank_debt_after_loan(marge):
     marge.request_loan(100)
+    
     assert marge.balance == 10100
     assert marge._debt == 110
 

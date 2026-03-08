@@ -37,7 +37,6 @@ class ATM:
         how_m = cls.number_of_atms
         return how_m
 
-
     def __repr__(self):
         return f"ATM Located in {self.location}"
     
@@ -147,15 +146,15 @@ class Administration:
         key = int(key_str)
         return cls(name, key)
     
+    @property
+    def key(self):
+        return self._key
+    
     def __repr__(self):
         return f"Administrator: {self.name} \n Key: {self._key}"
     
     def __str__(self):
         return f"{self.name} is an authorized ATM Administrator"
-    
-    @property
-    def key(self):
-        return self._key
 
     def block_user(self, atm_instance, account_to_block):
         account_to_block._active = False
