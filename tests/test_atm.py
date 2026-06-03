@@ -1,4 +1,7 @@
-from ATM_Practice import ATM, Account, Other_Bank_Account, Technician, Administration
+from src.atm import ATM
+from src.account import Account, Other_Bank_Account
+from src.roles import Technician, Administration
+
 import pytest
 
 @pytest.fixture
